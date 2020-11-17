@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>FERNWEH</title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="TRAVEL WEBSITE" />
+
+	 <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+
+	<link href="css1/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="css1/font1-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="//fonts.googleapis.com/css1?family=Hind:300,400,500,600,700" rel="stylesheet">
+
+   
+</head>
+<body background="travel.jpg">
+
+<div class="TRAVEL-main"> 
+	<div class="bg-layer">
+
+		<h1> Login </h1>
+		<div class="header-main">
+			<div class="">
+				<span class="fa fa-eercast"></span>
+			</div>
+			<div class="header-left-bottom">
+				<form action="" method="post" id='add'>
+					<div class="icon1">
+						<span class="fa fa-user"></span>
+						<input type="text" id="date" name="date" placeholder="Date" required=""/>
+					</div>
+
+					<div class="bottom">
+						<button class="btn" type='submit'>Log In</button>
+					</div>
+					
+				</form>	
+			</div>
+			<!--div class="social">
+				<ul>
+					<li>or login using : </li>
+					<li><a href="#" class="facebook"><span class="fa fa-facebook"></span></a></li>
+					<li><a href="#" class="twitter"><span class="fa fa-twitter"></span></a></li>
+					<li><a href="#" class="google"><span class="fa fa-google-plus"></span></a></li>
+				</ul>
+
+			</div-->
+		</div>
+		
+		<div class="copyright">
+			<p>© 2019 FERNWEH LOGIN . All rights reserved </p>
+		</div>
+		 
+	</div>
+</div>	
+
+</body>
+<script src='./js/jquery.js'></script>
+<script src='./js/init.js'></script>
+
+  <script>
+  $(function(){
+	$('#add').submit(function (e){
+		e.preventDefault();
+		var json = {
+			date: $('#date').val()
+    } // This contains form details.
+    console.log(json,'User json');  
+		$.ajax({
+			url : baseUrl + '/controllers/holidays',
+			method :'post',
+			contentType : 'application/json',
+			cache :false,
+			data :JSON.stringify(json),
+			success :function(response){
+				console.log(response,'response');
+				//setCookie('user_id',userInfo.USER_ID,7)
+				alert('Myholidays Addded');
+				window.location.href = '/user.html'
+			},
+			error :function(err){
+				console.log(err);
+				alert((((err || {}).responseJSON) || {}).message)
+			}
+		});
+	})
+})
+
+</script>
+
+</html>

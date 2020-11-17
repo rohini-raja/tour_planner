@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>FERNWEH</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="TRAVEL WEBSITE" />
+
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+
+    <link href="css1/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css1/font1-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="//fonts.googleapis.com/css1?family=Hind:300,400,500,600,700" rel="stylesheet">
+
+
+</head>
+
+<body background="travel.jpg">
+    <div class="TRAVEL-main">
+        <div class="bg-layer">
+            <h1> MY INTERESTS</h1>
+            <div class="header-main" id='interest-container'>
+            </div>
+        </div>
+    </div>
+</body>
+<script src='./js/jquery.js'></script>
+<script src='./js/init.js'></script>
+<script>
+    $(function () {
+        function userInit() {
+            $.ajax({
+                url: baseUrl + '/api/interest',
+                method: 'get',
+                contentType: 'application/json',
+                cache: false,
+                headers: {
+                    user: getCookie('user')
+                },
+                success: function (response) {
+                    console.log(response, 'response');
+                    var html = '';
+                    response.map(function (data) {
+                        html += `<div class='card' style="width:96%;margin: 15px 2%;padding:10px ;background:white">
+                                      <p class="color:black">${data.INTERESTS}</h3>
+                                </div>`;
+                    })
+                    // console.log(userInfo.EMAIL)
+                    $('#interest-container').html(html);
+
+                },
+                error: function (err) {
+                    console.log(err);
+                    alert((((err || {}).responseJSON) || {}).message)
+                }
+            });
+        }
+        window.onload = function () {
+            if (getCookie('user'))
+                userInit();
+            else
+                alert('Please login to continue')
+        }
+    })
+</script>

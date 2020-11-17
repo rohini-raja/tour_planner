@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Images</title>
+</head>
+<style>
+	img{
+		max-width: 33%;
+	}
+</style>
+<body>
+	<div class='images-container'>
+
+	</div>
+</body>
+<script src='./js/jquery.js'></script>
+<script src='./js/init.js'></script>
+<script>
+  $(function () {
+    function userInit() {
+      $.ajax({
+        url: baseUrl + '/get/images',
+        method: 'get',
+        contentType: 'application/json',
+        cache: false,
+        success: function (response) {
+		  console.log(response,'response');
+		  let html='';
+		  response.map(function(data){
+			html+= `<img src='${data.path}'>`;
+		  })
+		  console.log(html);
+		  $('.images-container').append(html);
+        },
+        error: function (err) {
+          console.log(err);
+          alert((((err || {}).responseJSON) || {}).message)
+        }
+      });
+    }
+    window.onload = function () {
+      if (getCookie('email'))
+        userInit();
+      else
+        alert('Please login to continue')
+    }
+  })
+</script>
+</html>

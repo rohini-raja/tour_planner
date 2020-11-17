@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>FERNWEH</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="TRAVEL WEBSITE" />
+
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+
+    <link href="css1/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css1/font1-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="//fonts.googleapis.com/css1?family=Hind:300,400,500,600,700" rel="stylesheet">
+
+
+</head>
+
+<body background="travel.jpg">
+    <div class="TRAVEL-main">
+        <div class="bg-layer">
+            <h1> MY INTERESTS</h1>
+            <div class="header-main" id='interest-container'>
+            </div>
+            
+            <div class="row form-group">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                      <display id="cpp" name="cpp"></display>
+                    </div>
+                  </div>
+  
+                  <div class="row form-group">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                      
+                      <display id="tour_desc" name="tour_desc"></display>
+                    </div>
+                    <div class="col-md-6">
+                     
+                      <display id="pincode" name="pincode"></display>
+                    </div>
+                  </div>
+  
+                  <div class="row form-group">
+                    <div class="col-md-6 ">
+                      
+                      <display id="photography" name="photography"></display>
+                    </div>
+                    <div class="col-md-6">
+                      
+                      <display name="fromd" id="fromd"></display>
+                    </div>
+                  </div>
+  
+                  <div class="row form-group">
+                    <div class="col-md-6 ">
+                            <display name="tod" id="tod"></display>
+                    </div>
+  
+                  </div>
+                  <div class="row form-group">
+                        <div class="col-md-6 ">
+                                <display name="period" id="period"></display>
+                        </div>
+      
+                      </div>
+        </div>
+    </div>
+</body>
+<script src='./js/jquery.js'></script>
+<script src='./js/init.js'></script>
+<script>
+    $(function () {
+        function userInit() {
+            $.ajax({
+                url: baseUrl + '/api/dates',
+                method: 'get',
+                contentType: 'application/json',
+                cache: false,
+                headers: {
+                    user: getCookie('user')
+                },
+                success: function (response) {
+          console.log(response,'response');
+          var userInfo = response.data;
+          console.log(userInfo)
+          console.log(userInfo.EMAIL)
+          $('#cpp').html(userInfo.CPP || 'NA');
+          $('#pincode').html(userInfo.PINCODE || 'NA');
+          $('#photography').html(userInfo.PHOTOGRAPHY || 'NA');
+          $('#fromd').html(userInfo.FROMD || 'NA');
+          $('#tod').html(userInfo.TOD || 'NA');
+          $('#tour_desc').html(userInfo.TOUR_DESC || 'NA');
+          $('#period').html(userInfo.PERIOD || 'NA');
+        },
+                error: function (err) {
+                    console.log(err);
+                    alert((((err || {}).responseJSON) || {}).message)
+                }
+            });
+        }
+        window.onload = function () {
+            if (getCookie('user'))
+                userInit();
+                            else
+                alert('Please login to continue')
+        }
+    })
+</script>

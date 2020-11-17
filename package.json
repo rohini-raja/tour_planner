@@ -1,0 +1,26 @@
+{
+  "name": "login",
+  "version": "1.0.0",
+  "description": "Login Page",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/Div_S/begin.git"
+  },
+  "author": "Divya S",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/Div_S/begin/issues"
+  },
+  "homepage": "https://gitlab.com/Div_S/begin#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "cryptr": "^4.0.2",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "mysql": "^2.16.0"
+  }
+}

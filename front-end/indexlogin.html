@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>FERNWEH</title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="TRAVEL WEBSITE" />
+
+	 <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+
+	<link href="css1/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="css1/font1-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="//fonts.googleapis.com/css1?family=Hind:300,400,500,600,700" rel="stylesheet">
+
+   
+</head>
+<body background="travel.jpg">
+
+<div class="TRAVEL-main"> 
+	<div class="bg-layer">
+
+		<h1> Login </h1>
+		<div class="header-main">
+			<div class="">
+				<span class="fa fa-eercast"></span>
+			</div>
+			<div class="header-left-bottom">
+				<form action="" method="post" id='login'>
+					<div class="icon1">
+						<span class="fa fa-user"></span>
+						<input type="email" id="email" name="email" placeholder="Email Address" required=""/>
+					</div>
+					<div class="icon1">
+						<span class="fa fa-lock"></span>
+						<input type="password" id="password" name="password" placeholder="Password" required=""/>
+					</div>
+					<div class="login-check">
+						 <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i> Keep me logged in</label>
+					</div>
+					<div class="bottom">
+						<button class="btn" type='submit'>Log In</button>
+					</div>
+					<div class="links">
+						
+						<p class="header-left-bottom"><a href="./indesignup1.html">Register</a></p>
+									
+						<p ><a href="./update.html">Change my number?</a><p>	<div class="clear"></div>
+					</div>
+	
+				</form>	
+			</div>
+			<!--div class="social">
+				<ul>
+					<li>or login using : </li>
+					<li><a href="#" class="facebook"><span class="fa fa-facebook"></span></a></li>
+					<li><a href="#" class="twitter"><span class="fa fa-twitter"></span></a></li>
+					<li><a href="#" class="google"><span class="fa fa-google-plus"></span></a></li>
+				</ul>
+
+			</div-->
+		</div>
+		
+		<div class="copyright">
+			<p>© 2019 FERNWEH LOGIN . All rights reserved </p>
+		</div>
+		 
+	</div>
+</div>	
+
+</body>
+<script src='./js/jquery.js'></script>
+<script src='./js/init.js'></script>
+<script>
+
+$(function(){
+	$('#login').submit(function (e){
+		e.preventDefault();
+		var json = {
+			email: $('#email').val(),
+			password: $('#password').val()
+		} // This contains form details.
+		console.log(json,'User json');  
+		$.ajax({
+			url : baseUrl + '/controllers/authen',
+			method :'post',
+			contentType : 'application/json',
+			cache :false,
+			data :JSON.stringify(json),
+			success :function(response){
+				console.log(response,'response');
+				setCookie('user',response.message.USER_ID,7)
+				alert('Login Success');
+				window.location.href = '/user.html'
+			},
+			error :function(err){
+				console.log(err);
+				alert((((err || {}).responseJSON) || {}).message)
+			}
+		});
+	})
+})
+
+
+</script>
+</html>
